@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import List
 
 from player import Player
 
@@ -14,8 +15,8 @@ class Team():
     def __init__(self, data):
         # players and their respective position need to be extracted from
         # data
-        self.players: Player[11] = None
-        self.bench_players: Player[12] = None
+        self.players: List[Player] = None  # Should contain 11 players
+        self.bench_players: List[Player] = None  # Should contain 12 players
         self.substitutions_made: int = 0
         self.formation: TeamFormation = None
 
