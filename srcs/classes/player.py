@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from enum import Enum
 
+from utils import Coordinates
+
 
 class PlayerRole(Enum):
     """Enum used to represent the player's role."""
@@ -27,6 +29,7 @@ class Player(ABC):
         self.name: str = name
         self.number: int = number
         self.attributes: PlayerAttributes = PlayerAttributes(attributes)
+        self.coordinates: Coordinates = Coordinates()
         self.role: PlayerRole = None
 
     @abstractmethod
