@@ -106,6 +106,7 @@ class Movement():
         self.deceleration = -2
         self.current_deceleration = 0
         self.current_acceleration = self.acceleration
+        self.destination_distance = 0
         
 
 
@@ -117,7 +118,7 @@ class Movement():
     def decelation_to_move(self):
         self.current
 
-    def move(self):
+    def move_slow(self):
         self.current_acceleration = self.acceleration * (1 - (self.current_vel/self.sprint_speed))
         v0 = self.current_vel
         self.current_vel = self.current_vel + (self.current_acceleration * self.player.time)
@@ -141,11 +142,16 @@ class Movement():
         
         space = ((v0+self.current_vel)/2)* self.player.time
 
+
+
         #self.current_direction[0] *= space
         #self.current_direction[1] *= space
 
-          
-        self.player.coordinates.coordinates = self.player.coordinates.coordinates + (self.current_direction*space) 
+        if self.destination_distance > space:
+            self.player.coordinates.coordinates = self.player.coordinates.coordinates + (self.current_direction*space) 
+        else:
+            self.player.coordinates.coordinates = self.player.coordinates.coordinates + (self.move_destination_coordinates - self.player.coordinates.coordinates)
+
         
         #print("Espacio Total Recorrido: ",space, " -> Coordenadas antes: ",coordenadas_antes," Coordenadas Despues: ",self.player.coordinates.coordinates," Lo que me he movido ", self.current_direction)
 
@@ -158,16 +164,18 @@ class Movement():
         
         #self.current_direction = [self.move_destination_coordinates[0] - self.player.coordinates.coordinates[0],self.move_destination_coordinates[1] - self.player.coordinates.coordinates[1]] 
         self.current_direction = self.move_destination_coordinates - self.player.coordinates.coordinates
+        self.destination_distance = np.linalg.norm(self.current_direction)
         #print("Self MC: ",self.move_destination_coordinates," Player Coor: ", self.player.coordinates.coordinates," current_direction: ", self.current_direction)
-        
-        if self.current_direction[0] == 0 and self.current_direction[1] == 0:
+        print("Current Direction: ",self.current_direction, " -> norma = ", self.destination_distance)
+        if self.destination_distance < 0.1:
             self.player.doing_something = None
             self.current_acceleration = self.acceleration
             self.current_vel = 0
-            self.current_direction[0] = self.current_direction[1] = 1
+
         else:
-            magnitude = np.linalg.norm(self.current_direction)
-            self.current_direction = self.current_direction/magnitude
+            
+
+            self.current_direction = self.current_direction/self.destination_distance
             #print("Direccion Normalizada: ", self.current_direction)
             self.run()
 

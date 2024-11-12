@@ -7,7 +7,7 @@ from time import sleep
 from classes.screen import Screen
 
 def main():
-    time = 0.5
+    time = 1
     field = Field()
     player = Player("Jugador",1,Coordinates(0,0),field,time)
     screen = Screen([player],field,960,480)
