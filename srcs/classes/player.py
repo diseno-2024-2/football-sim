@@ -31,7 +31,7 @@ class PlayerAttributes():
 class Player(ABC):
     """Abstract class representing a generic player."""
 
-    def __init__(self, name: str, number: int, coordinates: Coordinates, field: Field, time: float):
+    def __init__(self, name: str, number: int, field: Field, time: float, coordinates=Coordinates()):
         self.name: str = name
         self.number: int = number
         self.attributes: PlayerAttributes = None
