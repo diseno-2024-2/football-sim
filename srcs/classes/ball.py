@@ -1,4 +1,4 @@
-from utils import Coordinates
+from classes.utils import Coordinates
 
 
 class Ball():
@@ -6,14 +6,22 @@ class Ball():
         self.coordinates: Coordinates = Coordinates()
         self.radius: float = 1  # Change later to apropiate value
 
-    def kick():
+    def kick(self):
         pass
 
-    def control():
+    def control(self):
         pass
 
-    def pass_ball():
+    def pass_ball(self):
         pass
 
-    def catch():
+    def catch(self):
         pass
+
+    def move(self):
+        if not self.coordinates.is_moving():
+            self.coordinates.speed[0] = 1
+            self.coordinates.speed[1] = 1
+        else:
+            self.coordinates.move()
+            print(self.coordinates)

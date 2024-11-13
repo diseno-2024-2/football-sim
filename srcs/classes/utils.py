@@ -12,6 +12,14 @@ class Coordinates:
         self.speed = np.array([0.0, 0.0])
         self.acceleration = np.array([0.0, 0.0])
 
+    def is_moving(self):
+        if np.any(self.speed != 0):
+            return True
+        return False
+
+    def move(self):
+        self.coordinates += self.speed
+
     def __str__(self):
         return (f'({self.coordinates[0]:.2f} , {self.coordinates[1]:.2f})')
 

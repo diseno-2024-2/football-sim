@@ -1,7 +1,9 @@
 import pygame
+from typing import List
+
 from classes.player import Player
 from classes.field import Field
-from typing import List
+from classes.ball import Ball
 
 
 class Screen:
@@ -10,9 +12,10 @@ class Screen:
     línea en Pygame.
     """
 
-    def __init__(self, playerList: List[Player], field: Field, viewWidht, viewHeight):
+    def __init__(self, playerList: List[Player], ball: Ball, field: Field, viewWidht, viewHeight):
         # Inicializar Pygame
         self.player_list = playerList
+        self.ball = ball
         pygame.init()
 
         self.view_width = viewWidht
@@ -51,8 +54,9 @@ class Screen:
             pygame.draw.polygon(self.screen, (255, 0, 0),
                                 vertices_transformados)
 
-            pygame.draw.circle(self.screen, (0, 0, 255), self.transform_point(
-                player.movement.move_destination_coordinates), 10)
+    def plot_ball(self):
+        pygame.draw.circle(self.screen, (0, 0, 255), self.transform_point(
+            self.ball.coordinates.coordinates), 10)
 
     def plot(self):
         # Método para actualizar la visualización
@@ -60,6 +64,8 @@ class Screen:
         self.screen.fill(self.bg_color)
 
         self.plot_players()
+        self.plot_ball()
+
         # Dibujar la línea
 
     def visualize(self):
