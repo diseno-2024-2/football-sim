@@ -1,5 +1,7 @@
 import numpy as np
 
+from classes.field import Field
+
 
 class Coordinates:
     """
@@ -19,13 +21,25 @@ class Coordinates:
 
     def move(self):
         self.coordinates += self.speed
+        if (self.coordinates[1] > Field.HEIGHT or self.coordinates[1] < 0) or (self.coordinates[0] > Field.WIDTH or self.coordinates[0] < 0):
+            self.speed.fill(0)
+            self.acceleration.fill(0)
+
+    def deaccelerate(self):
+        self.speed += self.acceleration
+        if abs(self.speed[0]) < 0.1:
+            self.speed[0] = 0
+            self.acceleration[0] = 0
+        if abs(self.speed[1]) < 0.1:
+            self.speed[1] = 0
+            self.acceleration[1] = 0
 
     def __str__(self):
         return (f'({self.coordinates[0]:.2f} , {self.coordinates[1]:.2f})')
 
 
 class Math:
-    @staticmethod
+    @ staticmethod
     def angle_between_two_vectors_radians(a, b):
 
         dot_product = np.dot(a, b)
@@ -37,7 +51,7 @@ class Math:
 
         return np.arccos(cos_theta)
 
-    @staticmethod
+    @ staticmethod
     def angle_between_two_vectors_degrees(a, b):
 
         dot_product = np.dot(a, b)

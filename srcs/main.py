@@ -9,7 +9,7 @@ def main():
     time = 1
     field = Field()
     player = Player("Jugador", 1, field=field, time=time)
-    ball = Ball()
+    ball = Ball(field)
     screen = Screen([player], ball, field, 960, 480)
 
     while True:
