@@ -1,10 +1,14 @@
-from classes.utils import Coordinates
+import numpy as np
 import random
+
+from classes.utils import Coordinates
 
 
 class Ball():
     def __init__(self, field):
         self.coordinates: Coordinates = Coordinates()
+        self.destination = self.coordinates.coordinates.copy()
+        self.distance = 0.0
         self.radius: float = 1  # Change later to apropiate value
         self.field = field
 
@@ -20,22 +24,28 @@ class Ball():
     def catch(self):
         pass
 
-    def move(self):
-        print(f'Ball coordinates => {
-              self.coordinates} - {self.coordinates.speed}')
-        if not self.coordinates.is_moving():
-            print('Set random coordinates for ball')
-            self.random_pos_and_dir()
-        else:
-            print('Move ball')
-            self.coordinates.move()
-            self.coordinates.deaccelerate()
+    def update(self):
+        if np.all(np.abs(self.coordinates.coordinates - self.destination) < 0.1):
+            self.random_destination_and_speed()
+            return
+        self.coordinates.move()
+        new_distance = self.coordinates.distance(self.destination)
+        if self.distance != 0 and new_distance > self.distance:
+            print(f'{new_distance} > {self.distance}')
+            self.coordinates.coordinates = self.destination.copy()
+            self.distance = 0.0
+            return
+        self.distance = new_distance
 
-    def random_pos_and_dir(self):
-        self.coordinates.coordinates[0] = random.randint(
-            int(self.field.width * 0.25), int(self.field.width * 0.75))
-        self.coordinates.coordinates[1] = random.randint(
-            int(self.field.height * 0.25), int(self.field.height * 0.75))
-        self.coordinates.speed[0] = random.uniform(-7, 7)
-        self.coordinates.speed[1] = random.uniform(-7, 7)
-        self.coordinates.acceleration = self.coordinates.speed * -0.05
+    def random_destination_and_speed(self):
+        destination = np.array([0.0, 0.0])
+        destination[0] = random.randint(0, self.field.width)
+        destination[1] = random.randint(0, self.field.height)
+        force = random.uniform(1, 7)
+        self.move(destination, force)
+
+    def move(self, destination, force):
+        self.destination = destination.copy()
+        direction = (self.destination - self.coordinates.coordinates) / \
+            self.coordinates.distance(self.destination)
+        self.coordinates.speed = force * direction

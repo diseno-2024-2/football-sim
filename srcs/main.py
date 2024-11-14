@@ -14,7 +14,7 @@ def main():
 
     while True:
         screen.visualize()
-        ball.move()
+        ball.update()
         player.behavior()
         sleep(0.1)
         print(player)

@@ -25,6 +25,9 @@ class Coordinates:
             self.speed.fill(0)
             self.acceleration.fill(0)
 
+    def distance(self, point):
+        return np.linalg.norm(point - self.coordinates)
+
     def deaccelerate(self):
         self.speed += self.acceleration
         if abs(self.speed[0]) < 0.1:
