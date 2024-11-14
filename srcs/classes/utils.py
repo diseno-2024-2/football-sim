@@ -3,6 +3,10 @@ import numpy as np
 from classes.field import Field
 
 
+class OutOfFieldException(Exception):
+    pass
+
+
 class Coordinates:
     """
     Class used to store and interact with entitie's position and movement on a
@@ -21,9 +25,10 @@ class Coordinates:
 
     def move(self):
         self.coordinates += self.speed
-        if (self.coordinates[1] > Field.HEIGHT or self.coordinates[1] < 0) or (self.coordinates[0] > Field.WIDTH or self.coordinates[0] < 0):
+        if ((self.coordinates[1] > Field.HEIGHT or self.coordinates[1] < 0) or
+                (self.coordinates[0] > Field.WIDTH or self.coordinates[0] < 0)):
             self.speed.fill(0)
-            self.acceleration.fill(0)
+            raise OutOfFieldException()
 
     def distance(self, point):
         return np.linalg.norm(point - self.coordinates)

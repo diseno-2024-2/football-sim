@@ -2,6 +2,7 @@ import numpy as np
 import random
 
 from classes.utils import Coordinates
+from classes.utils import OutOfFieldException
 
 
 class Ball():
@@ -25,10 +26,19 @@ class Ball():
         pass
 
     def update(self):
+        print(
+            f'Ball coordinates -> {self.coordinates} - {self.coordinates.speed}')
+        print(f'Ball destination -> {self.destination}')
         if np.all(np.abs(self.coordinates.coordinates - self.destination) < 0.1):
             self.random_destination_and_speed()
             return
-        self.coordinates.move()
+        try:
+            self.coordinates.move()
+        except OutOfFieldException:
+            # Later implement correct behavior when ball leaves field
+            self.destination.fill(0.0)
+            self.coordinates.coordinates.fill(0.0)
+
         new_distance = self.coordinates.distance(self.destination)
         if self.distance != 0 and new_distance > self.distance:
             print(f'{new_distance} > {self.distance}')
@@ -41,11 +51,11 @@ class Ball():
         destination = np.array([0.0, 0.0])
         destination[0] = random.randint(0, self.field.width)
         destination[1] = random.randint(0, self.field.height)
-        force = random.uniform(1, 7)
+        force = random.uniform(10, 40)
         self.move(destination, force)
 
     def move(self, destination, force):
         self.destination = destination.copy()
         direction = (self.destination - self.coordinates.coordinates) / \
             self.coordinates.distance(self.destination)
-        self.coordinates.speed = force * direction
+        self.coordinates.speed = ((force * 0.1) / 0.410) * direction
