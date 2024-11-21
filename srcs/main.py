@@ -8,9 +8,10 @@ import pymongo
 
 
 def main():
-    client = pymongo.MongoClient("mongodb://localhost:27017/")
-    db = client["tmp"]
-    print(db)
+    client = pymongo.MongoClient("mongodb://root:example@localhost:27017/")
+    db = client["simulation"]
+    collection = db["player"]
+    print(collection.count_documents({}))
     # time = 1
     # field = Field()
     # player = Player("Jugador", 1, Coordinates(0, 0), field, time)
