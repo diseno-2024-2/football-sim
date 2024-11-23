@@ -1,0 +1,62 @@
+{
+  "team1": {
+    "starting": [
+      { "id": "edwuincetrecommon75", "position": "GK" },
+      { "id": "lalthuammawiaraltecommon51", "position": "RB" },
+      { "id": "ayoubakosiahcommon58", "position": "LB" },
+      { "id": "casodenthalcommon70", "position": "CB" },
+      { "id": "sebastianprietocommon69", "position": "CB" },
+      { "id": "luispalmarare74", "position": "CDM" },
+      { "id": "joelintonrare82", "position": "RM" },
+      { "id": "tinokaufmanncommon58", "position": "LM" },
+      { "id": "davidkeltjenscommon65", "position": "CAM" },
+      { "id": "botondbaloghcommon69", "position": "LW" },
+      { "id": "mamadouthiamrare63", "position": "RW" }
+    ],
+    "substitutes": [
+      { "id": "sambousoumanocommon68" },
+      { "id": "alejandroaraquecommon69" },
+      { "id": "malickthiawcommon78" },
+      { "id": "samiouaissarare64" },
+      { "id": "loukapripcommon69" },
+      { "id": "nicholasgioacchinirare71" },
+      { "id": "ionutandreiradurare72" },
+      { "id": "maximechanotcommon72" },
+      { "id": "luanycommon77" },
+      { "id": "anagonzalezrare80" },
+      { "id": "wilmeranderssoncommon52" },
+      { "id": "oguzaydıncommon73" },
+      { "id": "josemarsarare66" }
+    ]
+  },
+  "team2": {
+    "starting": [
+      { "id": "alexandruoroianrare63", "position": "GK" },
+      { "id": "ramonabilacommon70", "position": "RB" },
+      { "id": "yannbodigercommon69", "position": "LB" },
+      { "id": "jakerichardsrare56", "position": "CB" },
+      { "id": "fernandotorresicon87", "position": "CB" },
+      { "id": "hamidoukeytarare69", "position": "CDM" },
+      { "id": "ezequielnayacommon60", "position": "RM" },
+      { "id": "lo'eaulabontarare81", "position": "LM" },
+      { "id": "raulicon90", "position": "CAM" },
+      { "id": "aymericlaporterare83", "position": "LW" },
+      { "id": "piotrzielinskirare81", "position": "RW" }
+    ],
+    "substitutes": [
+      { "id": "martatorrejoncommon80" },
+      { "id": "stjepanloncarcommon70" },
+      { "id": "nicoleojukwucommon66" },
+      { "id": "lukasjagercommon66" },
+      { "id": "aitanabonmatitrailblazers92" },
+      { "id": "marinjakoliscommon66" },
+      { "id": "simonjohanssoncommon59" },
+      { "id": "mateoperaltarare60" },
+      { "id": "bandaralahbabirare72" },
+      { "id": "ryanschewecommon52" },
+      { "id": "juniormwangarare72" },
+      { "id": "cristiandumitrucommon61" },
+      { "id": "harrykaneuclroadtotheknockouts91" }
+    ]
+  }
+}

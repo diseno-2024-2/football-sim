@@ -1,7 +1,5 @@
 from enum import Enum
-from typing import List
-
-from player import Player
+# from player import Player
 
 
 class TeamFormation(Enum):
@@ -12,15 +10,27 @@ class TeamFormation(Enum):
 class Team():
     """Class representing a team inside a match."""
 
-    def __init__(self, playerList: List[Player]):
-        # players and their respective position need to be extracted from
-        # data
-        
-        
-        self.players: List[Player] = playerList# Should contain 11 players
-        self.bench_players: List[Player] = None  # Should contain 12 players
+    def __init__(self, players, collection):
+        self.players = []
+        self.substitutes = []
         self.substitutions_made: int = 0
         self.formation: TeamFormation = None
+
+        starters = players['starting']
+        subs = players['substitutes']
+        for p in starters:
+            self.players.append(
+                # Wrap arround player constructor later `Player(*)`
+                collection.find_one({"_id": p['id']})
+            )
+        for p in subs:
+            self.substitutes.append(
+                # Wrap arround player constructor later `Player(*)`
+                collection.find_one({"_id": p['id']})
+            )
+
+    def __str__(self):
+        return (f'Starting: {self.players}\n\nSubs: {self.substitutes}')
 
     def sub_player(player_out, player_in):
         pass
