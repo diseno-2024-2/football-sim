@@ -1,17 +1,17 @@
 {
   "team1": {
     "starting": [
-      { "id": "edwuincetrecommon75", "position": "GK" },
-      { "id": "lalthuammawiaraltecommon51", "position": "RB" },
-      { "id": "ayoubakosiahcommon58", "position": "LB" },
-      { "id": "casodenthalcommon70", "position": "CB" },
-      { "id": "sebastianprietocommon69", "position": "CB" },
-      { "id": "luispalmarare74", "position": "CDM" },
-      { "id": "joelintonrare82", "position": "RM" },
-      { "id": "tinokaufmanncommon58", "position": "LM" },
-      { "id": "davidkeltjenscommon65", "position": "CAM" },
-      { "id": "botondbaloghcommon69", "position": "LW" },
-      { "id": "mamadouthiamrare63", "position": "RW" }
+      { "id": "edwuincetrecommon75", "role": "GK" },
+      { "id": "lalthuammawiaraltecommon51", "role": "RB" },
+      { "id": "ayoubakosiahcommon58", "role": "LB" },
+      { "id": "casodenthalcommon70", "role": "CB" },
+      { "id": "sebastianprietocommon69", "role": "CB" },
+      { "id": "luispalmarare74", "role": "CDM" },
+      { "id": "joelintonrare82", "role": "RM" },
+      { "id": "tinokaufmanncommon58", "role": "LM" },
+      { "id": "davidkeltjenscommon65", "role": "CAM" },
+      { "id": "botondbaloghcommon69", "role": "LW" },
+      { "id": "mamadouthiamrare63", "role": "RW" }
     ],
     "substitutes": [
       { "id": "sambousoumanocommon68" },
@@ -31,17 +31,17 @@
   },
   "team2": {
     "starting": [
-      { "id": "alexandruoroianrare63", "position": "GK" },
-      { "id": "ramonabilacommon70", "position": "RB" },
-      { "id": "yannbodigercommon69", "position": "LB" },
-      { "id": "jakerichardsrare56", "position": "CB" },
-      { "id": "fernandotorresicon87", "position": "CB" },
-      { "id": "hamidoukeytarare69", "position": "CDM" },
-      { "id": "ezequielnayacommon60", "position": "RM" },
-      { "id": "lo'eaulabontarare81", "position": "LM" },
-      { "id": "raulicon90", "position": "CAM" },
-      { "id": "aymericlaporterare83", "position": "LW" },
-      { "id": "piotrzielinskirare81", "position": "RW" }
+      { "id": "alexandruoroianrare63", "role": "GK" },
+      { "id": "ramonabilacommon70", "role": "RB" },
+      { "id": "yannbodigercommon69", "role": "LB" },
+      { "id": "jakerichardsrare56", "role": "CB" },
+      { "id": "fernandotorresicon87", "role": "CB" },
+      { "id": "hamidoukeytarare69", "role": "CDM" },
+      { "id": "ezequielnayacommon60", "role": "RM" },
+      { "id": "lo'eaulabontarare81", "role": "LM" },
+      { "id": "raulicon90", "role": "CAM" },
+      { "id": "aymericlaporterare83", "role": "LW" },
+      { "id": "piotrzielinskirare81", "role": "RW" }
     ],
     "substitutes": [
       { "id": "martatorrejoncommon80" },
