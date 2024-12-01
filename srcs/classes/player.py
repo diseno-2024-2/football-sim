@@ -90,7 +90,7 @@ class Player():
         self.coordinates = coordinates
         self.posicion_formacion = Coordinates(
             coordinates.coordinates[0], coordinates.coordinates[1])
-        self.id = data['_id']
+        self.id = id
         self.id_equipo = 0
     # def __init__(self, name: str, number: int, coordinates: Coordinates, field: Field, color, time: float):
 
