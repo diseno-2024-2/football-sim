@@ -1,12 +1,19 @@
-import sys
 from typing import List
-
 from shapely.geometry import Polygon
 from classes.ball import Ball
-
+from enum import Enum
+import numpy as np
 
 # Suponiendo que Player está definido en otro lugar
 # from player import Player 
+
+class Evento(Enum):
+    FUERA = 1
+    CORNER = 2
+    GOL = 3
+    PASE_LARGO = 4
+
+
 
 class Sites():
     def __init__(self,fieldWidht,fieldHeight,center_x,center_y):
@@ -34,9 +41,8 @@ class Field():
         self.center_y = self.height / 2
         self.sites = Sites(self.width,self.height,self.center_x,self.center_y)
         self.ball: Ball = None
-
         self.equipo_con_balon = -1
-
+        self.evento_actual:Evento = None
         
         
     
@@ -51,7 +57,22 @@ class Field():
 
     def plot(self):
        pass
-       
+
+    def manterencampo(self,coordenadas: np.array):
+        coordinates = np.array([coordenadas[0],coordenadas[1]])
+        if(coordinates[0] > self.width - 0.5):
+            coordinates[0] = self.width - 0.5
+        else: 
+            if(coordinates[0] <= 0):
+                coordinates[0] = 0.5
+        if(coordinates[1] > self.height - 0.5):
+            coordinates[1] = self.height - 0.5
+        else: 
+            if(coordinates[1] <= 0):
+                coordinates[1] = 0.5
+
+        return coordinates
+        
    
 
 

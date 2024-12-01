@@ -15,6 +15,7 @@ from shapely.ops import clip_by_rect
 from classes.ball import Ball
 import pyvoronoi as pv
 from classes.utils import Math
+from classes.field import Evento
 
 class TeamFormation(Enum):
     """Enum used to represent the team's formation."""
@@ -100,6 +101,7 @@ class Team():
         self.lado = lado
         self.field: Field = field
         self.posicionesinciales: List[np.array] = []
+        self.posicioneseventoactualizadas = False
         self.ball: Ball = self.field.ball
         self.inicializarposiciones()
         self.teaminformation: TeamInformation = TeamInformation()
@@ -120,7 +122,7 @@ class Team():
    
            
     
-    def actualizarposiciones(self):
+    def actualizarposiciones(self): 
         if (self.id == 1):
             cantidadasumar = (self.ball.coordinates.coordinates[0] - 16.5)/2
         else:
@@ -129,6 +131,21 @@ class Team():
         for pos in range(1,len(self.players)):
             self.players[pos].posicion_formacion.coordinates[0] = self.posicionesinciales[pos][0] + cantidadasumar
          
+        if not(self.posicioneseventoactualizadas):
+            
+            if self.field.evento_actual == Evento.FUERA or self.field.evento_actual == Evento.CORNER:
+                self.posicioneseventoactualizadas = True
+                for pos in range(0,len(self.players)):
+                    self.players[pos].coordinates.coordinates[0] = self.players[pos].posicion_formacion.coordinates[0]
+                    self.players[pos].coordinates.coordinates[1] = self.players[pos].posicion_formacion.coordinates[1]
+                if self.field.equipo_con_balon == self.id:
+                    print("ACTUALIZANDO POSICIONES EQUIPO CON POSESIÓN: ", self.field.equipo_con_balon)
+                    jugadorquesaca = np.array([Math.distancia(self.players[pos].posicion_formacion.coordinates,self.ball.coordinates.coordinates) for pos in range(0,len(self.players))]).argmin()
+                    self.players[jugadorquesaca].coordinates.coordinates[0] = self.ball.coordinates.coordinates[0]
+                    self.players[jugadorquesaca].coordinates.coordinates[1] = self.ball.coordinates.coordinates[1]
+                    print("ID DEL JUGADOR QUE SACA: ", jugadorquesaca)
+                    self.players[jugadorquesaca].tengoelbalon = True
+
 
     def jugadormascercanobalon(self):   
         idjugador:int = -1

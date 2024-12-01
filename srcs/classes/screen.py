@@ -1,6 +1,8 @@
 import pygame
+
 import numpy as np
 from classes.player import Player
+from classes.utils import Math
 from classes.ball import Ball
 from classes.field import Field
 from typing import List
@@ -33,6 +35,9 @@ class Screen:
         self.bg_color = (0, 128, 0)  # Gris claro
         self.line_color = (255, 0, 0)    # Rojo
         self.polygon_color = (0, 0, 255) # Azul
+
+        self.minutos:float = 0.0
+        self.segundos:float  = 0.0
 
        
 
@@ -81,6 +86,7 @@ class Screen:
         self.plot_field()  # Rellenar el fondo con el color gris clar
         self.plot_players()
         self.plot_ball()
+        self.plot_texto()
         # Dibujar la línea
        
     def plot_field(self):
@@ -101,8 +107,22 @@ class Screen:
 
 
     def plot_ball(self):
-        vertices_transformados = self.transform_polygon(self.ball.action_area.exterior.coords)
+        vertices_transformados = self.transform_polygon(self.ball.action_area.exterior.coords) # Podriamos hacer la pelota más grande conforme se mueva hacia arriva hacia abajo
+
         pygame.draw.polygon(self.screen, (255,255,255), vertices_transformados)
+
+
+
+    def plot_texto(self):
+        fuente = pygame.font.Font(None,45)
+        segundos:str = str(Math.convierteminutos(self.segundos)).split(".")
+        texto = Math.convierteminutos(self.minutos)+ ":" + segundos[0] + ":" + segundos[1]
+        renderizado_texto = fuente.render(texto, True, (255,255,255),(0,0,0))  # Renderizar texto (antialias, color)
+
+        # Posicionar el texto
+        posicion_texto = (self.view_width // 2 - renderizado_texto.get_width() // 2, 10)
+        self.screen.blit(renderizado_texto, posicion_texto)
+
 
 
     def visualice(self):

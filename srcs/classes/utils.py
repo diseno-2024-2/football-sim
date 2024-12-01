@@ -2,14 +2,18 @@ import numpy as np
 import math
 from typing import List
 
+
+
 class Coordinates:
     """
     Class used to store and interact with entitie's position and movement on a
     2D plane. Speed and acceleration are represented by vectors.
     """
 
-    def __init__(self, x, y):
-        self.coordinates = np.array([x, y])
+    def __init__(self, x:float, y:float):
+        self.coordinates = np.array([0.0, 0.0])
+        self.coordinates[0] = x
+        self.coordinates[1] = y
         self.speed = np.array([0.0, 0.0])
         self.acceleration = np.array([0.0, 0.0])
 
@@ -18,7 +22,20 @@ class Coordinates:
 
 class Math:
 
-    def rotarvector(vector:np.array,angulo:int):
+    gravedad: float = 9.8
+
+
+    def media_geometrica_ponderada(valores,pesos):
+        return np.prod(np.power(valores,pesos))
+
+
+
+    def convierteminutos(min:float):
+        if(min < 10):
+            return "0"+str(min)
+        return str(min)   
+
+    def rotarvector(vector:np.array,angulo:float):
         angulo_radianes = np.radians(angulo)
         matriz_rotacion = np.array([
             [np.cos(angulo_radianes), -np.sin(angulo_radianes)],
