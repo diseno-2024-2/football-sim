@@ -27,8 +27,9 @@ class Interaction:
         self.candidatosanteriorescontrol = []
 
         self.clock = 0
-        self.timepoint= -1
+        self.timepoint = -1
         self.time = 0
+
 
     def resolverconflictos(self):
         self.sehapasadoelbalon()
@@ -37,12 +38,11 @@ class Interaction:
         self.balonsehaidofuerae()
         self.losjugadorespuedenvolveraatraparla()
 
-
     def sehapasadoelbalon(self):
         if self.ball.hasidopasada:
-            #print("Ha sido pasada")
+            # print("Ha sido pasada")
             self.jugadorescuandosehizoelpase = []
-            #print("Ha sido pasada")
+            # print("Ha sido pasada")
             for player in self.player_list:
                     if player.action_area.intersects(self.ball.action_area) and self.field.equipo_con_balon != player.id_equipo: 
                         self.jugadorescuandosehizoelpase.append(player)
@@ -54,9 +54,6 @@ class Interaction:
             #print("Ya pueden los jugadores inhabilitados")
             self.jugadorescuandosehizoelpase = [] 
             self.candidatosanteriores = []
-
-
-           
 
     def disputadebalondividido(self):
         if self.field.evento_actual != Evento.PASE_LARGO:

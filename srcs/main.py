@@ -3,12 +3,13 @@ from classes.player import Player
 from classes.utils import Coordinates
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-from time import sleep 
+from time import sleep
 from classes.screen import Screen
 from classes.ball import Ball
 from classes.interaction import Interaction
 from classes.team import Team
 import random
+
 
 def main():
     time = 0.01
@@ -16,9 +17,9 @@ def main():
     n_jugadores_por_equipo = 11
     jugadoresequipo1 = []
     jugadoresequipo2 = []
-    color1 = (255,0,0)
-    color2 = (0,0,255)
-    
+    color1 = (255, 0, 0)
+    color2 = (0, 0, 255)
+
     field.ball = ball = Ball(time)
     for i in range(0,n_jugadores_por_equipo):
         jugadoresequipo1.append(Player("Jugador"+str(i),i,Coordinates(random.randint(0,field.width),random.randint(0,field.height)),field,color1,time))
@@ -42,7 +43,7 @@ def main():
         equipo1.behaviour()
         equipo2.behaviour()
         interaction.resolverconflictos()
-        interaction.time += time 
+        interaction.time += time
         equipo1.actualizarposiciones()
         equipo2.actualizarposiciones()
         screen.time = interaction.time
@@ -50,15 +51,9 @@ def main():
         screen.segundos = segundos.__round__(2)
         
         segundos += time
-        if int(segundos)%61 == 0:
+        if int(segundos) % 61 == 0:
             minutos += 1
             segundos = 1.0
-
-        
-
-   
-        
-   
 
 
 if __name__ == '__main__':

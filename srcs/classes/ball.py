@@ -21,10 +21,12 @@ class Ball():
         self.tiempo_contacto = 0.5
         self.masa = 0.420
         self.doing_something = None
-        self.action_area: Polygon = Polygon([(self.coordinates.coordinates[0]+self.radius,self.coordinates.coordinates[1]+self.radius),
-                                             (self.coordinates.coordinates[0]+self.radius,self.coordinates.coordinates[1]-self.radius),
-                                             (self.coordinates.coordinates[0]-self.radius,self.coordinates.coordinates[1]-self.radius),
-                                             (self.coordinates.coordinates[0]-self.radius,self.coordinates.coordinates[1]+self.radius)])
+        self.action_area: Polygon = Polygon([(self.coordinates.coordinates[0]+self.radius, self.coordinates.coordinates[1]+self.radius),
+                                             (self.coordinates.coordinates[0]+self.radius,
+                                              self.coordinates.coordinates[1]-self.radius),
+                                             (self.coordinates.coordinates[0]-self.radius,
+                                              self.coordinates.coordinates[1]-self.radius),
+                                             (self.coordinates.coordinates[0]-self.radius, self.coordinates.coordinates[1]+self.radius)])
         self.hasidopasada = False
         self.campo = None
         self.movement = Movement(self)
@@ -35,10 +37,12 @@ class Ball():
         
 
     def refresh(self):
-        self.action_area: Polygon = Polygon([(self.coordinates.coordinates[0]+self.radius,self.coordinates.coordinates[1]+self.radius),
-                                             (self.coordinates.coordinates[0]+self.radius,self.coordinates.coordinates[1]-self.radius),
-                                             (self.coordinates.coordinates[0]-self.radius,self.coordinates.coordinates[1]-self.radius),
-                                             (self.coordinates.coordinates[0]-self.radius,self.coordinates.coordinates[1]+self.radius)])
+        self.action_area: Polygon = Polygon([(self.coordinates.coordinates[0]+self.radius, self.coordinates.coordinates[1]+self.radius),
+                                             (self.coordinates.coordinates[0]+self.radius,
+                                              self.coordinates.coordinates[1]-self.radius),
+                                             (self.coordinates.coordinates[0]-self.radius,
+                                              self.coordinates.coordinates[1]-self.radius),
+                                             (self.coordinates.coordinates[0]-self.radius, self.coordinates.coordinates[1]+self.radius)])
 
     def kick(self):
         pass
@@ -108,8 +112,8 @@ class Ball():
         self.doing_something = self.movement.move
         self.id_passed = id
         self.hasidopasada = True
-        
-        #print("Inicio del pase: ", self.id_passed)
+
+        # print("Inicio del pase: ", self.id_passed)
 
 
     def catch(self,forcerebote,direction):
@@ -129,7 +133,7 @@ class Ball():
         
         self.alguienlotiene = False
         self.movement.current_vel = (forcerebote * 0.1 / self.masa)
-        #print("Velocidad Inicial del Pase: ",self.movement.current_vel)
+        # print("Velocidad Inicial del Pase: ",self.movement.current_vel)
         norma = np.linalg.norm(direction)
         if norma > 0:
             self.movement.direction_pase = direction/norma
@@ -144,8 +148,8 @@ class Ball():
         else:
             self.id_passed = -1
         self.refresh()
-        
-    
+
+
 class Movement():
     def __init__(self,ball: Ball):
         self.acceleration_frenado = -Math.gravedad * ball.masa
@@ -189,25 +193,19 @@ class Movement():
         
     
     def move(self):
-        
+
         v0 = self.current_vel
 
-        self.current_vel = self.current_vel + (self.acceleration_frenado * self.ball.time)
+        self.current_vel = self.current_vel + \
+            (self.acceleration_frenado * self.ball.time)
 
-        space = ((v0+self.current_vel)/2)* self.ball.time
+        space = ((v0+self.current_vel)/2) * self.ball.time
 
-        if(self.current_vel < 0):
+        if (self.current_vel < 0):
             self.ball.stop()
 
-        self.ball.coordinates.coordinates = self.ball.coordinates.coordinates + (self.direction_pase*space)
-
-        
-
+        self.ball.coordinates.coordinates = self.ball.coordinates.coordinates + \
+            (self.direction_pase*space)
 
     def __str__(self):
         return (f'velocidad actual: {self.current_vel} | aceleracion: {self.current_acceleration}')
-
-
-    
-
-
