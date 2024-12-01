@@ -1,12 +1,11 @@
-from classes.field import Field
-from classes.player import Player
-# from classes.utils import Coordinates
-# from time import sleep
-# from classes.screen import Screen
-from classes.team import Team
-
-import pymongo
 import json
+import pymongo
+
+from classes.interaction import Interaction
+from classes.ball import Ball
+from classes.screen import Screen
+from classes.team import Team
+from classes.field import Field
 
 
 def main():
@@ -14,31 +13,56 @@ def main():
     db = client["simulation"]
     collection = db["player"]
 
-    # time = 1
+    time = 0.01
     field = Field()
-    # player = Player("Jugador", 1, Coordinates(0, 0), field, time)
-    # screen = Screen([player], field, 960, 480)
+    field.ball = ball = Ball(time)
+    field.ball.campo = field
 
-    team1, team2 = get_teams(collection, field)
-    print(f'TEAM 1:\n{team1}\n')
-    print(f'TEAM 2:\n{team2}')
+    equipo1, equipo2 = get_teams(collection, field)
+    equipo1.set_player_info(equipo2)
+    equipo2.set_player_info(equipo1)
+    print(f'TEAM 1:\n{equipo1}\n')
+    print(f'TEAM 2:\n{equipo2}')
 
-    # while True:
-    #     screen.visualice()
-    #     player.behavior()
-    #     sleep(0.1)
-    #     print(player)
+    screen = Screen(equipo1.players + equipo2.players,
+                    ball, field, 1080, 720, time)
+    interaction = Interaction(
+        equipo1.players + equipo2.players, ball, field, equipo1, equipo2)
+
+    segundos = 0.1
+    minutos = -1
+    while minutos < 90:
+        screen.visualice()
+        equipo1.decision()
+        equipo2.decision()
+        ball.behaviour()
+        equipo1.behaviour()
+        equipo2.behaviour()
+        interaction.resolverconflictos()
+        interaction.time += time
+        equipo1.actualizarposiciones()
+        equipo2.actualizarposiciones()
+        screen.time = interaction.time
+        screen.minutos = minutos
+        screen.segundos = segundos.__round__(2)
+
+        segundos += time
+        if int(segundos) % 61 == 0:
+            minutos += 1
+            segundos = 1.0
 
 
 def get_teams(collection, field):
     team1 = None
     team2 = None
+    color1 = (255, 0, 0)
+    color2 = (0, 0, 255)
     with open('teams.json', 'r') as file:
         data = json.load(file)
         t1 = data['team1']
-        team1 = Team(t1, collection, field)
+        team1 = Team(0, t1, collection, field, color1)
         t2 = data['team2']
-        team2 = Team(t2, collection, field)
+        team2 = Team(1, t2, collection, field, color2)
     return team1, team2
 
 
